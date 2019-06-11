@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Currency Converter</string>
+
+    <string name="currency_prompt">Choose a currency</string>
+
+    <string-array name="currency_array">
+        <item>Euro (EUR)</item>
+        <item>Japanese yen (JPY)</item>
+        <item>Pound sterling (GBP)</item>
+        <item>Australian dollar (AUD)</item>
+        <item>Canadian dollar (CAD)</item>
+        <item>Swiss franc (CHF)</item>
+        <item>Thailand Baht (THB)</item>
+        <item>Swedish krona (SEK)</item>
+        <item>New Zealand dollar (NZD)</item>
+    </string-array>
+</resources>
