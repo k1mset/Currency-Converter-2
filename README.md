@@ -11,3 +11,6 @@ Instead of having a toast display your currency amount, this new version display
 
 Finally, an image at the bottom of the screen is updated each time a currency is selected. Allow the user to get a small display
 of what currency they are converting to.
+
+EDIT: 
+Fixer.io API's free version only pulls rates for euro conversion. So, I had to change the baseline code to be EUR -> X currency converter. 
