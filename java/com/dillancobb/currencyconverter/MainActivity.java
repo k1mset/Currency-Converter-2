@@ -11,7 +11,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,12 +21,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
     // Doubles used for storing the currency rates from the JSON API
-    double jsonEur;
+    double jsonUsd;
     double jsonJpy;
     double jsonGbp;
     double jsonAud;
@@ -38,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     double jsonNzd;
 
     // Editable textviews on the UI
-    TextView dollarTxt;
+    TextView euroTxt;
     TextView rateTxt;
     TextView amountTxt;
 
@@ -49,13 +47,13 @@ public class MainActivity extends AppCompatActivity {
     DecimalFormat currencyFormat = new DecimalFormat("0.00");
 
     // convertMoney method is called when the Convert button is pressed.
-    // Takes the amount entered in the txtDollarsInput and multiplies it to the rates fetched
+    // Takes the amount entered in the txtEuroTxt and multiplies it to the rates fetched
     // from the API. Alters the imageview to the currency selected, and alters the total information
     // inside the layout for the user
     public void convertMoney(View view) {
         /* Information on position according to the Spinner
          * Spinner ID's : URL
-         * 0 - EUR
+         * 0 - USD
          * 1 - JPY
          * 2 - GBP
          * 3 - AUD
@@ -67,32 +65,32 @@ public class MainActivity extends AppCompatActivity {
          */
 
         // Other needed variables
-        EditText dollarAmt = (EditText) findViewById(R.id.txtDollarsInput);
+        EditText euroAmt = (EditText) findViewById(R.id.txtEuroAmt);
         Spinner currencyConvert = (Spinner) findViewById(R.id.spinner);
         int currencyPos = currencyConvert.getSelectedItemPosition();
 
         // Try catch to ensure the user placed an amount in the txtDollarInput
         try {
-            double dollar = Double.parseDouble(dollarAmt.getText().toString());
+            double euro = Double.parseDouble(euroAmt.getText().toString());
             double total = 0;
             String sym = "";
 
-            dollarTxt.setText(Double.toString(dollar));
+            euroTxt.setText(Double.toString(euro));
 
             // Checks the spinner position and handles according compared to its position
             switch (currencyPos) {
 
                 // EUR
                 case 0:
-                    total = Double.parseDouble(currencyFormat.format(dollar * jsonEur));
-                    sym = "€";
-                    rateTxt.setText(currencyFormat.format(jsonEur));
-                    currDisp.setImageResource(R.drawable.eur);
+                    total = Double.parseDouble(currencyFormat.format(euro * jsonUsd));
+                    sym = "$";
+                    rateTxt.setText(currencyFormat.format(jsonUsd));
+                    currDisp.setImageResource(R.drawable.usd);
                     break;
 
                 // JPY
                 case 1:
-                    total = Double.parseDouble(currencyFormat.format(dollar * jsonJpy));
+                    total = Double.parseDouble(currencyFormat.format(euro * jsonJpy));
                     sym = "¥";
                     rateTxt.setText(currencyFormat.format(jsonJpy));
                     currDisp.setImageResource(R.drawable.jpy);
@@ -100,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // GBP
                 case 2:
-                    total = Double.parseDouble(currencyFormat.format(dollar * jsonGbp));
+                    total = Double.parseDouble(currencyFormat.format(euro * jsonGbp));
                     sym = "£";
                     rateTxt.setText(currencyFormat.format(jsonGbp));
                     currDisp.setImageResource(R.drawable.gbp);
@@ -108,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // AUD
                 case 3:
-                    total = Double.parseDouble(currencyFormat.format(dollar * jsonAud));
+                    total = Double.parseDouble(currencyFormat.format(euro * jsonAud));
                     sym = "$";
                     rateTxt.setText(currencyFormat.format(jsonAud));
                     currDisp.setImageResource(R.drawable.aud);
@@ -116,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // CAD
                 case 4:
-                    total = Double.parseDouble(currencyFormat.format(dollar * jsonCad));
+                    total = Double.parseDouble(currencyFormat.format(euro * jsonCad));
                     sym = "$";
                     rateTxt.setText(currencyFormat.format(jsonCad));
                     currDisp.setImageResource(R.drawable.cad);
@@ -124,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // CHF
                 case 5:
-                    total = Double.parseDouble(currencyFormat.format(dollar * jsonChf));
+                    total = Double.parseDouble(currencyFormat.format(euro * jsonChf));
                     sym = "SFr.";
                     rateTxt.setText(currencyFormat.format(jsonChf));
                     currDisp.setImageResource(R.drawable.chf);
@@ -132,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // THB
                 case 6:
-                    total = Double.parseDouble(currencyFormat.format(dollar * jsonThb));
+                    total = Double.parseDouble(currencyFormat.format(euro * jsonThb));
                     sym = "฿";
                     rateTxt.setText(currencyFormat.format(jsonThb));
                     currDisp.setImageResource(R.drawable.thb);
@@ -140,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // SEK
                 case 7:
-                    total = Double.parseDouble(currencyFormat.format(dollar * jsonSek));
+                    total = Double.parseDouble(currencyFormat.format(euro * jsonSek));
                     sym = "kr";
                     rateTxt.setText(currencyFormat.format(jsonSek));
                     currDisp.setImageResource(R.drawable.sek);
@@ -148,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // NZD
                 case 8:
-                    total = Double.parseDouble(currencyFormat.format(dollar * jsonNzd));
+                    total = Double.parseDouble(currencyFormat.format(euro * jsonNzd));
                     sym = "$";
                     rateTxt.setText(currencyFormat.format(jsonNzd));
                     currDisp.setImageResource(R.drawable.nzd);
@@ -163,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
             amountTxt.setText(sym + total);
         } catch (NumberFormatException e) {
             // Creates a toast in case the user never entered in an ammout in txtDollarInput
-            Toast.makeText(MainActivity.this, "Enter a dollar amount.",
+            Toast.makeText(MainActivity.this, "Enter a euro amount.",
                     Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
@@ -215,8 +213,8 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(s);
                 JSONObject rateObject = new JSONObject(jsonObject.getString("rates"));
 
-                jsonEur = Double.parseDouble(currencyFormat.format
-                        (rateObject.getDouble("EUR")));
+                jsonUsd = Double.parseDouble(currencyFormat.format(rateObject.getDouble
+                        ("USD")));
                 jsonJpy = Double.parseDouble(currencyFormat.format(rateObject.getDouble
                         ("JPY")));
                 jsonGbp = Double.parseDouble(currencyFormat.format(rateObject.getDouble
@@ -235,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
                         ("NZD")));
 
                 // For debugging, displays each rate from the JSON data
-                Log.i("EUR Rate", ""+jsonEur);
+                Log.i("USD Rate", ""+jsonUsd);
                 Log.i("JPY Rate", ""+jsonJpy);
                 Log.i("GBP Rate", ""+jsonGbp);
                 Log.i("AUD Rate", ""+jsonAud);
@@ -260,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
         task.execute("http://data.fixer.io/api/latest?access_key=036110653bcc9c74a83d5f6bc846ae0a&format=1");
 
         // Find the editing UI items
-        dollarTxt = (TextView) findViewById(R.id.txtDollar);
+        euroTxt = (TextView) findViewById(R.id.txtEuro);
         rateTxt = (TextView) findViewById(R.id.txtRate);
         amountTxt = (TextView) findViewById(R.id.txtTotal);
 

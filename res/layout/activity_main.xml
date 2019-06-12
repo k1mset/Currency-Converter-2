@@ -17,7 +17,7 @@
         android:prompt="@string/currency_prompt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txtDollarsInput" />
+        app:layout_constraintTop_toTopOf="@+id/txtEuroAmt" />
 
     <TextView
         android:id="@+id/textView2"
@@ -29,7 +29,7 @@
         android:text="Select a currency to convert to:"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDollarsInput" />
+        app:layout_constraintTop_toBottomOf="@+id/txtEuroAmt" />
 
     <Button
         android:id="@+id/button"
@@ -65,10 +65,10 @@
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dollar amount:" />
+                android:text="Euro amount:" />
 
             <TextView
-                android:id="@+id/txtDollar"
+                android:id="@+id/txtEuro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </TableRow>
@@ -121,17 +121,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tableLayout"
-        app:srcCompat="@drawable/usd" />
+        app:srcCompat="@drawable/eur" />
 
     <EditText
-        android:id="@+id/txtDollarsInput"
+        android:id="@+id/txtEuroAmt"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="26dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="26dp"
         android:ems="10"
-        android:hint="Amount in Dollars"
+        android:hint="Amount in Euros"
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

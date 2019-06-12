@@ -4,7 +4,7 @@
     <string name="currency_prompt">Choose a currency</string>
 
     <string-array name="currency_array">
-        <item>Euro (EUR)</item>
+        <item>U.S. Dollar (USD)</item>
         <item>Japanese yen (JPY)</item>
         <item>Pound sterling (GBP)</item>
         <item>Australian dollar (AUD)</item>
